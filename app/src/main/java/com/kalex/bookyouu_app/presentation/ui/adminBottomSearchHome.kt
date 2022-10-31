@@ -71,9 +71,8 @@ fun searchContent(navController: NavController){
             .height(246.dp)
             .width(440.dp)
             .padding(2.dp) )
-        Spacer(modifier = Modifier.padding(3.dp))
         Card(
-            encabezado = "Consulta Estudiantes",
+            encabezado = "Consultar Estudiantes",
             R.drawable.ic_student,
             navController,
             Constants.AdminSendStudentNavItem,
@@ -81,20 +80,20 @@ fun searchContent(navController: NavController){
 
         )
         Card(
-            encabezado = "Consulta Docentes",
+            encabezado = "Consultar Docentes",
             R.drawable.plagiarism_24,
             navController,
             Constants.AdminSendProfesorNavItem,
             color2
         )
         Card(
-            encabezado = "Consulta Materias",
+            encabezado = "Consultar Materias",
             R.drawable.plagiarism_24,
             navController,
             Constants.AdminSendProfesorNavItem,
             color2
         )
 
-        Spacer(modifier = Modifier.padding(3.dp))
+        Spacer(modifier = Modifier.padding(15.dp))
     }
 }

@@ -40,37 +40,20 @@ fun AdminCreateProfesor(
     postDocumentViewModel: PostDocumentViewModel = hiltViewModel()
 ) {
 
-    val resp = oficesViewModel.state.value
-    val correo = oficesViewModel.correo
     //para barra lateral
     val scaffoldState = rememberScaffoldState(
         drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     )
     val scope = rememberCoroutineScope()
 
-    //barra de cargando
-    if (resp.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize(0.1f)
-
-            )
-        }
-    }
-    //Logica para obtener ciudades de la API
-    if (!resp.isLoading) {
         AdminProfesorToolBar(
             navController,
             scope,
             scaffoldState,
-            correo,
             postDocumentViewModel
         )
 
-    }
+
 }
 
 @ExperimentalPermissionsApi
@@ -79,7 +62,6 @@ fun AdminProfesorToolBar(
     navController: NavHostController,
     scope: CoroutineScope,
     scaffoldState: ScaffoldState,
-    correo: String,
     postDocumentViewModel: PostDocumentViewModel
 ) {
     Scaffold(
@@ -116,14 +98,13 @@ fun AdminProfesorToolBar(
         drawerGesturesEnabled = true
 
     ) {
-        AdminProfesorFormularioDoc(correo, postDocumentViewModel)
+        AdminProfesorFormularioDoc( postDocumentViewModel)
     }
 }
 
 @ExperimentalPermissionsApi
 @Composable
 fun AdminProfesorFormularioDoc(
-    correo: String,
     postDocumentViewModel: PostDocumentViewModel
 
 ) {
@@ -155,18 +136,17 @@ fun AdminProfesorFormularioDoc(
             // bajar al siguiente field
             localFocusManager.moveFocus(FocusDirection.Down)
         })
-        val text4 = InputText(label = "Correo", correo, onAction = {
+        val text4 = InputText(label = "Correo", onAction = {
             // bajar al siguiente field
             localFocusManager.moveFocus(FocusDirection.Down)
         })
-        val menu2 = dropDownMenu(listaCarreras, nombreInput = "Carrera")
 
 
 //-------------------validaciones para habilitar enviar data---------------------------
         val validacion =
             validarString(text1) && validarString(text2) && validarString(text3) && validarString(
                 text4
-            ) && validarString(menu1) && validarString(menu2)
+            ) && validarString(menu1)
 
 //-------------------Armado del body para Post Document---------------------------
         //Crear Body para mandar
@@ -181,7 +161,6 @@ fun AdminProfesorFormularioDoc(
             jsonObject.put("Identificacion", text1)
             jsonObject.put("Nombre", text2)
             jsonObject.put("Apellido", text3)
-            jsonObject.put("Ciudad", menu2)
             jsonObject.put("Correo", text4)
 
             var jsonObjectString = jsonObject.toString()
@@ -194,54 +173,4 @@ fun AdminProfesorFormularioDoc(
     }
 
 }
-
-
-//funcion para capturar img y validar su tamaño
-@ExperimentalPermissionsApi
-@Composable
-fun capturaraImgGaleria(
-    modifier: Modifier = Modifier,
-    onimagenTomada: (Uri) -> Unit = { }
-): Uri {
-    var imageUri by remember { mutableStateOf(EMPTY_IMAGE_URI) }
-
-    if (imageUri != EMPTY_IMAGE_URI) {
-        onimagenTomada(imageUri)
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Imagen(
-                imageUri, modifier = Modifier
-                    .height(400.dp)
-                    .width(500.dp)
-                    .padding(10.dp)
-            )
-
-            Button(
-                modifier = Modifier,
-                onClick = {
-                    imageUri = EMPTY_IMAGE_URI
-                }
-            ) {
-                Text("Eliminar imagen")
-            }
-        }
-
-
-    } else {
-        GallerySelect(
-            modifier = modifier,
-            onImageUri = { uri ->
-                imageUri = uri
-
-            }
-        )
-    }
-    return imageUri
-}
-
-val EMPTY_IMAGE_URI: Uri = Uri.parse("file://dev/null")
 

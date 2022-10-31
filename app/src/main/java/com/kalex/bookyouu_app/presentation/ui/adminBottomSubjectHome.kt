@@ -88,6 +88,6 @@ fun subjectContent(navController: NavController){
             color2
         )
 
-        Spacer(modifier = Modifier.padding(3.dp))
+        Spacer(modifier = Modifier.padding(15.dp))
     }
 }
