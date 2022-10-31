@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import com.kalex.bookyouu_app.BookYouAplication
+import com.kalex.bookyouu_app.MainActivity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -19,7 +19,7 @@ const val SETTING_PREFERENCES_NAME: String = "settings_preferences"
 @Singleton
 class SettingsDataStore @Inject constructor(
 
-    private val context : BookYouAplication
+    private val context : MainActivity
 ){
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(

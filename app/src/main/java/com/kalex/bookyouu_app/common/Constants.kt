@@ -6,8 +6,12 @@ object Constants {
     const val  AdminHomeNavItem = "adminhome/{nombre}"
     const val  AdminSendStudentNavItem = "sendStudent"
     const val  AdminSendProfesorNavItem = "sendProfesor"
-    const val  AdminSubjectNavItem = "homesubject"
+    const val  AdminbottomSubjectNavItem = "homesubject"
+    const val  AdminbottomSearchNavItem = "homesearch"
     const val  AdminSearchNavItem = "homesearch"
+
+    const val  StudentHomeNavItem = "studenthome"
+
     const val  oficesNavItem = "getofices"
     const val  getDocNavItem = "getdoc"
     const val  getDocDetailNavItem = "getdocdetail/{idRegistro}"

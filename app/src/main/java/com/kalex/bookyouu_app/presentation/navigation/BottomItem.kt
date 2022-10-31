@@ -9,8 +9,8 @@ sealed class BottomItem(
     val title : String
 ){
     object AdminCreateUser : BottomItem(Constants.AdminHomeNavItem, R.drawable.ic_add,"Crear")
-    object AdminSubject : BottomItem(Constants.AdminSubjectNavItem, R.drawable.ic_add_subject_box,"Materias")
-    object AdminSearch : BottomItem(Constants.AdminSearchNavItem, R.drawable.ic_search,"Consulta")
+    object AdminSubject : BottomItem(Constants.AdminbottomSubjectNavItem, R.drawable.ic_add_subject_box,"Materias")
+    object AdminSearch : BottomItem(Constants.AdminbottomSearchNavItem, R.drawable.ic_search,"Consulta")
 
     object ProfesorCreateUser : BottomItem("ruta1", R.drawable.upload_file_24,"ruta1")
 

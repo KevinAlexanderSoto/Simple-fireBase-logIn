@@ -223,7 +223,7 @@ fun Buttonin(
                        //TODO: CHECK IF WE NEED THIS
                         // viewModel.saveAll(nombre = user.nombre,correo = correo, contraseña = contraseña)
                        // navController.navigate("home/${resp.user?.nombre}")
-                        navController.navigate("home/${"prueba"}") //TODO :  HERE WE CAN SEND THE CONTEXT OR USER TYPE
+                        navController.navigate("adminhome/${"prueba"}") //TODO :  HERE WE CAN SEND THE CONTEXT OR USER TYPE
 
                     }else if(acceso == false){
                         Toast.makeText(context,"El Correo o la Contraseña son incorrectos",Toast.LENGTH_LONG).show()
@@ -231,8 +231,6 @@ fun Buttonin(
                     }
 
                 }
-
-
 
                   },
         modifier = Modifier

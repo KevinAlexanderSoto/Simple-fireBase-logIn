@@ -42,6 +42,7 @@ fun Navegacion(onfiger: () -> Unit) {
         composable(Constants.MainNavItem){
             SingIn(navController)
         }
+//----------------Admin Section -------------------
         composable(Constants.AdminHomeNavItem
         ){
           backStackEntry->
@@ -67,11 +68,43 @@ fun Navegacion(onfiger: () -> Unit) {
         composable(Constants.AdminSendProfesorNavItem){
             AdminCreateProfesor(navController)
         }
-        composable(Constants.AdminSubjectNavItem){
-            AdminCreateProfesor(navController)
+        composable(Constants.AdminbottomSubjectNavItem){
+            val scaffoldState = rememberScaffoldState(
+                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+            )
+            Scaffold(
+                scaffoldState = scaffoldState,
+                bottomBar = { bottomNavigationScaffold(navController,navigation_item)}
+
+            ) {
+                // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
+                val nombre = appContext
+                requireNotNull(nombre)
+                adminBottomSubjectHome(navController)
+            }
+
+
         }
 
-        composable(Constants.getDocNavItem){
+        composable(Constants.AdminbottomSearchNavItem){
+            val scaffoldState = rememberScaffoldState(
+                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+            )
+            Scaffold(
+                scaffoldState = scaffoldState,
+                bottomBar = { bottomNavigationScaffold(navController,navigation_item)}
+
+            ) {
+                // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
+                val nombre = appContext
+                requireNotNull(nombre)
+                adminBottomSearchHome(navController)
+            }
+
+
+        }
+//-----------------Student section ---------------------------------
+        composable(Constants.StudentHomeNavItem){
             VerDocumentos(navController)
         }
         composable(Constants.getDocDetailNavItem){

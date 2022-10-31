@@ -1,7 +1,7 @@
 package com.kalex.bookyouu_app.di
 
 import android.content.Context
-import com.kalex.bookyouu_app.BookYouAplication
+import com.kalex.bookyouu_app.MainActivity
 import com.kalex.bookyouu_app.common.Constants
 import com.kalex.bookyouu_app.data.remote.UserRetroApi
 import com.kalex.bookyouu_app.data.repository.UserRepositoryImpl
@@ -37,8 +37,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApplication(@ApplicationContext app: Context): BookYouAplication {
-        return app as BookYouAplication
+    fun provideApplication(@ApplicationContext app: Context): MainActivity {
+        return app as MainActivity
     }
 
 }
