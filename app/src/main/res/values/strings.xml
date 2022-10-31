@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BookYouU</string>
+    <string name="google_maps_key"> AIzaSyDycINMI1eWxsVUhAN9diogqlA4S0bCBZY</string>
+
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">Recuerda haber ingresado por lo menos una vez con correo y contraseña</string>
+    <string name="prompt_info_use_app_password">Usar contraseña</string>
+
+    <string name="login_title_text">Hola</string>
+    <string name="login_credentials_error">Ingrese correo valido o ingrese contrasena</string>
+    <string name="login_subtitle_text">Ingresa tus credenciales para iniciar</string>
+</resources>
