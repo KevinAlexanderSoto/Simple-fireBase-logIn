@@ -75,7 +75,7 @@ fun subjectContent(navController: NavController){
             encabezado = "Agregar Materia",
             R.drawable.ic_student,
             navController,
-            Constants.AdminSendStudentNavItem,
+            Constants.AdminSendSubjectNavItem,
             color1
 
         )

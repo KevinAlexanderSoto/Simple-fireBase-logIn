@@ -8,6 +8,7 @@ object Constants {
     const val  AdminSendProfesorNavItem = "sendProfesor"
     const val  AdminbottomSubjectNavItem = "homesubject"
     const val  AdminbottomSearchNavItem = "homesearch"
+    const val  AdminSendSubjectNavItem = "subjectformsearch"
     const val  AdminSearchNavItem = "homesearch"
 
     const val  StudentHomeNavItem = "studenthome"

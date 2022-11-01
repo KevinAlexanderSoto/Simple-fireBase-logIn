@@ -1,6 +1,3 @@
-package com.kalex.bookyouu_app.presentation.ui
-
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -8,8 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -19,9 +15,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.kalex.bookyouu_app.presentation.composables.Drawer
+import com.kalex.bookyouu_app.presentation.composables.Imagen
+import com.kalex.bookyouu_app.presentation.ui.BtnEnviarImg
+import com.kalex.bookyouu_app.presentation.ui.InputText
+import com.kalex.bookyouu_app.presentation.ui.dropDownMenu
 import com.kalex.bookyouu_app.presentation.validations.validarString
 import com.kalex.bookyouu_app.presentation.viewModels.OficesViewModel
 import com.kalex.bookyouu_app.presentation.viewModels.PostDocumentViewModel
+import com.kalex.usodecamara.galeria.GallerySelect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -38,53 +39,35 @@ fun AdminCreateSubject(
     postDocumentViewModel: PostDocumentViewModel = hiltViewModel()
 ) {
 
-    val resp = oficesViewModel.state.value
-    val correo = oficesViewModel.correo
     //para barra lateral
     val scaffoldState = rememberScaffoldState(
         drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     )
     val scope = rememberCoroutineScope()
 
-    //barra de cargando
-    if (resp.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxSize(0.1f)
+    AdminSubjectToolBar(
+        navController,
+        scope,
+        scaffoldState,
+        postDocumentViewModel
+    )
 
-            )
-        }
-    }
-    //Logica para obtener ciudades de la API
-    if (!resp.isLoading) {
-        createSubjectToolBar(
-            navController,
-            scope,
-            scaffoldState,
-            correo,
-            postDocumentViewModel
-        )
 
-    }
 }
 
 @ExperimentalPermissionsApi
 @Composable
-fun createSubjectToolBar(
+fun AdminSubjectToolBar(
     navController: NavHostController,
     scope: CoroutineScope,
     scaffoldState: ScaffoldState,
-    correo: String,
     postDocumentViewModel: PostDocumentViewModel
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = "Agregar Estudiante") },
+                title = { Text(text = "Agregar Materia") },
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()
@@ -114,14 +97,13 @@ fun createSubjectToolBar(
         drawerGesturesEnabled = true
 
     ) {
-        SubjectForm(correo, postDocumentViewModel)
+        AdminSubjectFormulario( postDocumentViewModel)
     }
 }
 
 @ExperimentalPermissionsApi
 @Composable
-fun SubjectForm(
-    correo: String,
+fun AdminSubjectFormulario(
     postDocumentViewModel: PostDocumentViewModel
 
 ) {
@@ -153,18 +135,17 @@ fun SubjectForm(
             // bajar al siguiente field
             localFocusManager.moveFocus(FocusDirection.Down)
         })
-        val text4 = InputText(label = "Correo", correo, onAction = {
+        val text4 = InputText(label = "Correo", onAction = {
             // bajar al siguiente field
             localFocusManager.moveFocus(FocusDirection.Down)
         })
-        val menu2 = dropDownMenu(listaCarreras, nombreInput = "Carrera")
 
 
 //-------------------validaciones para habilitar enviar data---------------------------
         val validacion =
             validarString(text1) && validarString(text2) && validarString(text3) && validarString(
                 text4
-            ) && validarString(menu1) && validarString(menu2)
+            ) && validarString(menu1)
 
 //-------------------Armado del body para Post Document---------------------------
         //Crear Body para mandar
@@ -179,7 +160,6 @@ fun SubjectForm(
             jsonObject.put("Identificacion", text1)
             jsonObject.put("Nombre", text2)
             jsonObject.put("Apellido", text3)
-            jsonObject.put("Ciudad", menu2)
             jsonObject.put("Correo", text4)
 
             var jsonObjectString = jsonObject.toString()

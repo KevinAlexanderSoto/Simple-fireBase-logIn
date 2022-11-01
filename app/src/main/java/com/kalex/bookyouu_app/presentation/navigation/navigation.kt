@@ -1,6 +1,7 @@
 package com.kalex.bookyouu_app.presentation.navigation
 
 import AdminCreateProfesor
+import AdminCreateSubject
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -67,6 +68,9 @@ fun Navegacion(onfiger: () -> Unit) {
         }
         composable(Constants.AdminSendProfesorNavItem){
             AdminCreateProfesor(navController)
+        }
+        composable(Constants.AdminSendSubjectNavItem){
+            AdminCreateSubject(navController)
         }
         composable(Constants.AdminbottomSubjectNavItem){
             val scaffoldState = rememberScaffoldState(
