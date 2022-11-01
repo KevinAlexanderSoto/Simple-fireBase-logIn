@@ -66,11 +66,11 @@ fun searchContent(navController: NavController){
         verticalArrangement = Arrangement.spacedBy(19.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
         val resources = LocalContext.current.resources
-        Imagen(url = R.drawable.people2, modifier = Modifier
+        Imagen(url = R.drawable.searchimg, modifier = Modifier
             .wrapContentSize(Alignment.BottomCenter)
-            .height(246.dp)
+            .height(250.dp)
             .width(440.dp)
-            .padding(2.dp) )
+            )
         Card(
             encabezado = "Consultar Estudiantes",
             R.drawable.ic_student,

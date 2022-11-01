@@ -62,14 +62,14 @@ fun subjectContent(navController: NavController){
     Column(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(rememberScrollState()),// para hacer scroll
-        verticalArrangement = Arrangement.spacedBy(19.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
         val resources = LocalContext.current.resources
-        Imagen(url = R.drawable.people2, modifier = Modifier
+        Imagen(url = R.drawable.materiaimg, modifier = Modifier
             .wrapContentSize(Alignment.BottomCenter)
-            .height(246.dp)
-            .width(440.dp)
-            .padding(2.dp) )
+            .height(250.dp)
+            .width(450.dp)
+             )
         Spacer(modifier = Modifier.padding(3.dp))
         Card(
             encabezado = "Agregar Materia",
