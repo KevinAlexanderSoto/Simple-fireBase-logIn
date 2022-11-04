@@ -109,16 +109,13 @@ fun Navegacion(onfiger: () -> Unit) {
         }
 //-----------------Student section ---------------------------------
         composable(Constants.StudentHomeNavItem){
-            VerDocumentos(navController)
         }
         composable(Constants.getDocDetailNavItem){
                 backStackEntry->
             val idRegistro= backStackEntry.arguments?.getString("idRegistro")
             requireNotNull(idRegistro)
-            VerDocumento(navController, idRegistro = idRegistro)
         }
         composable(Constants.oficesNavItem){
-            VerOficinas(navController)
         }
     }
 }

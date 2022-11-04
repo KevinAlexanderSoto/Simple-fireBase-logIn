@@ -12,10 +12,10 @@ import javax.inject.Inject
 class GetUserUseCase @Inject constructor(
     private val repository: UserRepository // injectamos la interface
 ){
-    operator fun invoke(idUsuario: String, clave: String) : Flow<Resource<Userdto>> = flow{
+    operator fun invoke() : Flow<Resource<Userdto>> = flow{
         try {
             emit(Resource.Loading<Userdto>())
-            val user = repository.getUser(idUsuario,clave)
+            val user = repository.getUser()
             emit(Resource.Success<Userdto>(user))
         }catch (e: HttpException){
                 emit(Resource.Error<Userdto>(e.localizedMessage ?: "an unexpeted error occured"))

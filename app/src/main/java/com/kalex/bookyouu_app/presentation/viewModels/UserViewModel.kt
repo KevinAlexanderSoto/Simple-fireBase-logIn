@@ -25,17 +25,12 @@ class UserViewModel @Inject constructor(
     private val _state = mutableStateOf(UserState())
     val state: State<UserState> = _state
     //Emailvalidation   MutableState<String>
-     fun getUser(email:String , contraseña:String ) {
+    init {
+        getUser()
+    }
+     fun getUser() {
 
-        var realcontraseña:String
-        // po si el usuario no coloca contraseña
-        if (contraseña ==""){
-             realcontraseña = "no"
-        }else{
-             realcontraseña = contraseña
-        }
-        println("ESTA EN GET DEL FORMULARIO")
-        getUserUseCase(email, realcontraseña).onEach { result ->
+        getUserUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
 

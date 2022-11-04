@@ -15,14 +15,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.kalex.bookyouu_app.presentation.composables.Drawer
-import com.kalex.bookyouu_app.presentation.composables.Imagen
 import com.kalex.bookyouu_app.presentation.ui.BtnEnviarImg
 import com.kalex.bookyouu_app.presentation.ui.InputText
 import com.kalex.bookyouu_app.presentation.ui.dropDownMenu
 import com.kalex.bookyouu_app.presentation.validations.validarString
-import com.kalex.bookyouu_app.presentation.viewModels.OficesViewModel
-import com.kalex.bookyouu_app.presentation.viewModels.PostDocumentViewModel
-import com.kalex.usodecamara.galeria.GallerySelect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -35,8 +31,7 @@ import org.json.JSONObject
 @Composable
 fun AdminCreateSubject(
     navController: NavHostController,
-    oficesViewModel: OficesViewModel = hiltViewModel(),
-    postDocumentViewModel: PostDocumentViewModel = hiltViewModel()
+
 ) {
 
     //para barra lateral
@@ -49,7 +44,6 @@ fun AdminCreateSubject(
         navController,
         scope,
         scaffoldState,
-        postDocumentViewModel
     )
 
 
@@ -61,7 +55,6 @@ fun AdminSubjectToolBar(
     navController: NavHostController,
     scope: CoroutineScope,
     scaffoldState: ScaffoldState,
-    postDocumentViewModel: PostDocumentViewModel
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
@@ -97,14 +90,13 @@ fun AdminSubjectToolBar(
         drawerGesturesEnabled = true
 
     ) {
-        AdminSubjectFormulario( postDocumentViewModel)
+        AdminSubjectFormulario( )
     }
 }
 
 @ExperimentalPermissionsApi
 @Composable
 fun AdminSubjectFormulario(
-    postDocumentViewModel: PostDocumentViewModel
 
 ) {
     Column(
@@ -167,7 +159,7 @@ fun AdminSubjectFormulario(
             requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
         }
 
-        BtnEnviarImg(validacion, postDocumentViewModel, requestBody)
+        BtnEnviarImg(validacion, requestBody)
 
     }
 

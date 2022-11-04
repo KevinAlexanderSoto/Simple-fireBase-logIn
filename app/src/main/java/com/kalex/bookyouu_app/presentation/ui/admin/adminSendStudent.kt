@@ -1,9 +1,6 @@
 package com.kalex.bookyouu_app.presentation.ui
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
-import android.graphics.BitmapFactory
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.ui.geometry.Size
@@ -26,24 +23,16 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import androidx.core.net.toFile
-import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.kalex.bookyouu_app.R
-import com.kalex.bookyouu_app.camara.CameraCapture
 import com.kalex.bookyouu_app.presentation.composables.ButtonText
 import com.kalex.bookyouu_app.presentation.composables.Drawer
 import com.kalex.bookyouu_app.presentation.composables.Icono
-import com.kalex.bookyouu_app.presentation.composables.Imagen
 import com.kalex.bookyouu_app.presentation.theme.blanco
 import com.kalex.bookyouu_app.presentation.theme.bookYouuPrimary
-import com.kalex.bookyouu_app.presentation.validations.getFileSizeFloat
 import com.kalex.bookyouu_app.presentation.validations.validarString
-import com.kalex.bookyouu_app.presentation.viewModels.OficesViewModel
-import com.kalex.bookyouu_app.presentation.viewModels.PostDocumentViewModel
-import com.kalex.usodecamara.galeria.GallerySelect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -52,35 +41,24 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
-import com.kalex.bookyouu_app.common.getCapturedImage
-import java.io.ByteArrayOutputStream
-import android.util.Base64
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
-import com.kalex.bookyouu_app.common.getGaleryImage
-import java.io.IOException
-import java.io.InputStream
-import kotlin.collections.ArrayList
 
 
 @ExperimentalPermissionsApi
 @Composable
 fun AdminCreateStudent(
     navController: NavHostController,
-    oficesViewModel: OficesViewModel = hiltViewModel(),
-    postDocumentViewModel : PostDocumentViewModel = hiltViewModel()
 ) {
 
-    val resp = oficesViewModel.state.value
-    val correo = oficesViewModel.correo
     //para barra lateral
     val scaffoldState = rememberScaffoldState(
         drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     )
     val scope = rememberCoroutineScope()
 
-    //barra de cargando
+    /*//barra de cargando
     if (resp.isLoading){
         Box(modifier = Modifier.fillMaxSize()
             , contentAlignment = Alignment.Center
@@ -97,11 +75,15 @@ fun AdminCreateStudent(
             navController,
             scope,
             scaffoldState,
-            correo,
-            postDocumentViewModel
+            correo
         )
 
-    }
+    }*/
+    ToolBar(
+        navController,
+        scope,
+        scaffoldState
+    )
 }
 @ExperimentalPermissionsApi
 @Composable
@@ -109,8 +91,6 @@ fun ToolBar(
     navController :NavHostController,
     scope: CoroutineScope,
     scaffoldState: ScaffoldState,
-    correo: String,
-    postDocumentViewModel : PostDocumentViewModel
 ){
     Scaffold(
         scaffoldState = scaffoldState,
@@ -145,15 +125,13 @@ fun ToolBar(
         drawerGesturesEnabled = true
 
         ) {
-        FormularioDoc(correo,postDocumentViewModel)
+        FormularioDoc()
     }
 }
 
 @ExperimentalPermissionsApi
 @Composable
 fun FormularioDoc(
-    correo: String,
-    postDocumentViewModel: PostDocumentViewModel
 
 ) {
     Column (
@@ -184,7 +162,7 @@ fun FormularioDoc(
             // bajar al siguiente field
             localFocusManager.moveFocus(FocusDirection.Down)
         })
-        val text4 = InputText(label = "Correo",correo,onAction = {
+        val text4 = InputText(label = "Correo",onAction = {
             // bajar al siguiente field
             localFocusManager.moveFocus(FocusDirection.Down)
         })
@@ -218,7 +196,7 @@ fun FormularioDoc(
             requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
         }
 
-        BtnEnviarImg(validacion,postDocumentViewModel,requestBody)
+        BtnEnviarImg(validacion,requestBody)
 
     }
 
@@ -313,14 +291,12 @@ fun dropDownMenu(
 @Composable
 fun BtnEnviarImg(
     validacion: Boolean,
-    postDocumentViewModel: PostDocumentViewModel,
     requestBody: RequestBody?
 ) {
     val context = LocalContext.current
     Button(
         onClick = {
             requireNotNull(requestBody)
-            postDocumentViewModel.postDocument(requestBody)
 
             runBlocking {
                 delay(100)
@@ -341,13 +317,13 @@ fun BtnEnviarImg(
         ),
         enabled = validacion
     ) {
-        var resp = postDocumentViewModel.state
-        resp.value.respuesta
+        //var resp = postDocumentViewModel.state
+        /*resp.value.respuesta
         println(resp.value)
         if(resp.value.respuesta != null){
             Toast.makeText(context," Enviado Exitosamente",Toast.LENGTH_LONG).show()
             println(resp.value)
-        }
+        }*/
 
         Icono(url = R.drawable.send_24, valor = 25)
         Spacer(Modifier.size(4.dp))

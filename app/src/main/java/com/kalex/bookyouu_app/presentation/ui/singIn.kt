@@ -92,7 +92,7 @@ import java.io.File
         { password.value = it
         }
 
-        viewModel.getUser(text.correo,password.value)
+        //viewModel.getUser(text.correo,password.value)
         //var resp = viewModel.state.value
         Buttonin(habilitado = text.valid(),viewModel,navController,text.correo,password.value )
 

@@ -33,7 +33,6 @@ import androidx.core.net.toUri
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.kalex.bookyouu_app.presentation.composables.Imagen
 import com.kalex.bookyouu_app.presentation.ui.EMPTY_IMAGE_URI
-import com.kalex.bookyouu_app.presentation.validations.getFileSizeFloat
 import com.kalex.usodecamara.galeria.GallerySelect
 import java.io.File
 import kotlinx.coroutines.launch
