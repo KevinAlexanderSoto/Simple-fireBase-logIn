@@ -19,7 +19,6 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val settingsDataStore: SettingsDataStore,
-
     ):ViewModel(){
 
     private val _state = mutableStateOf(UserState())

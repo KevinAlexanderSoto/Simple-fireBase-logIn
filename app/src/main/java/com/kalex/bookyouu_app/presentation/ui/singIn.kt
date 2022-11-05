@@ -34,6 +34,7 @@ import com.kalex.bookyouu_app.presentation.composables.Imagen
 import com.kalex.bookyouu_app.presentation.theme.blanco
 import com.kalex.bookyouu_app.presentation.theme.bookYouuPrimary
 import com.kalex.bookyouu_app.presentation.validations.Emailvalidation
+import com.kalex.bookyouu_app.presentation.viewModels.SingInViewModel
 import com.kalex.bookyouu_app.presentation.viewModels.UserViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -44,7 +45,7 @@ import java.io.File
 
 @Composable fun SingIn(
     navController: NavController,
-    viewModel : UserViewModel = hiltViewModel(),
+    signInviewModel : SingInViewModel = hiltViewModel(),
 ){
 
     Column(
@@ -88,18 +89,85 @@ import java.io.File
 
         //state hoisting Password
         var password = remember { mutableStateOf("") }
-        PasswordFiels(password.value, onAction ={ localFocusManager.clearFocus()})
+        PasswordFiels(
+            password.value,
+            onAction = { localFocusManager.clearFocus() }
+        )
         { password.value = it
         }
 
         //viewModel.getUser(text.correo,password.value)
         //var resp = viewModel.state.value
-        Buttonin(habilitado = text.valid(),viewModel,navController,text.correo,password.value )
+        Buttonin(habilitado = text.valid(),signInviewModel,navController,text.correo,password.value )
 
 
     }
 
 
+}
+
+@Composable
+fun Buttonin(
+    habilitado: Boolean,
+    viewModel: SingInViewModel,
+    navController: NavController,
+    correo: String,
+    contraseña :String
+) {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+            runBlocking {
+                launch {
+                    delay(100L)
+                }
+            }
+
+            var resp = viewModel.state.value
+
+            //println("Respuesta de server: $resp")
+            resp.user?.let {user ->
+                //TODO: IMPLEMENT THIS WHIT FIRE BASE
+                // val acceso = user.acceso
+                val acceso = true
+                println("acceso $acceso")
+                // println("respuesta${resp.user}")
+                if (acceso == true){
+
+                    Toast.makeText(context,"Acceso concedido",Toast.LENGTH_LONG).show()
+                    //TODO: CHECK IF WE NEED THIS
+                    // viewModel.saveAll(nombre = user.nombre,correo = correo, contraseña = contraseña)
+                    // navController.navigate("home/${resp.user?.nombre}")
+                    navController.navigate("adminhome/${"prueba"}") //TODO :  HERE WE CAN SEND THE CONTEXT OR USER TYPE
+
+                }else if(acceso == false){
+                    Toast.makeText(context,"El Correo o la Contraseña son incorrectos",Toast.LENGTH_LONG).show()
+
+                }
+
+            }
+
+        },
+        modifier = Modifier
+            .padding(top = 30.dp)
+            .fillMaxWidth(0.8f)
+        ,
+        border = BorderStroke(1.dp, Color.Black),
+        shape = RoundedCornerShape(23.dp),
+        contentPadding = PaddingValues(12.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = bookYouuPrimary,
+            contentColor = blanco
+        ),
+        enabled = habilitado
+    ) {
+
+        Icono(R.drawable.outline_login_24,30)
+        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+        ButtonText("Ingresar",22)
+
+    }
+    //if(resp.isLoading) CircularProgressIndicator()
 }
 
 @Composable
@@ -189,70 +257,6 @@ fun PasswordFiels(
         }),
 
     )
-}
-
-@Composable
-fun Buttonin(
-    habilitado: Boolean,
-    viewModel: UserViewModel,
-    navController: NavController,
-    correo: String,
-    contraseña :String
-) {
-    val context = LocalContext.current
-    Button(
-        onClick = {
-            runBlocking {
-                launch {
-                    delay(100L)
-                }
-            }
-
-            var resp = viewModel.state.value
-
-               //println("Respuesta de server: $resp")
-                resp.user?.let {user ->
-                   //TODO: IMPLEMENT THIS WHIT FIRE BASE
-                    // val acceso = user.acceso
-                    val acceso = true
-                    println("acceso $acceso")
-                    // println("respuesta${resp.user}")
-                    if (acceso == true){
-
-                        Toast.makeText(context,"Acceso concedido",Toast.LENGTH_LONG).show()
-                       //TODO: CHECK IF WE NEED THIS
-                        // viewModel.saveAll(nombre = user.nombre,correo = correo, contraseña = contraseña)
-                       // navController.navigate("home/${resp.user?.nombre}")
-                        navController.navigate("adminhome/${"prueba"}") //TODO :  HERE WE CAN SEND THE CONTEXT OR USER TYPE
-
-                    }else if(acceso == false){
-                        Toast.makeText(context,"El Correo o la Contraseña son incorrectos",Toast.LENGTH_LONG).show()
-
-                    }
-
-                }
-
-                  },
-        modifier = Modifier
-            .padding(top = 30.dp)
-            .fillMaxWidth(0.8f)
-        ,
-        border = BorderStroke(1.dp, Color.Black),
-        shape = RoundedCornerShape(23.dp),
-        contentPadding = PaddingValues(12.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = bookYouuPrimary,
-            contentColor = blanco
-        ),
-        enabled = habilitado
-    ) {
-
-        Icono(R.drawable.outline_login_24,30)
-        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-        ButtonText("Ingresar",22)
-
-    }
-    //if(resp.isLoading) CircularProgressIndicator()
 }
 
 
