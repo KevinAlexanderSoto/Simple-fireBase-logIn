@@ -41,8 +41,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.File
 
-
-
 @Composable fun SingIn(
     navController: NavController,
     signInviewModel : SingInViewModel = hiltViewModel(),
@@ -123,10 +121,8 @@ fun Buttonin(
                 }
             }
 
-            var resp = viewModel.state.value
-
             //println("Respuesta de server: $resp")
-            resp.user?.let {user ->
+
                 //TODO: IMPLEMENT THIS WHIT FIRE BASE
                 // val acceso = user.acceso
                 val acceso = true
@@ -145,7 +141,7 @@ fun Buttonin(
 
                 }
 
-            }
+
 
         },
         modifier = Modifier

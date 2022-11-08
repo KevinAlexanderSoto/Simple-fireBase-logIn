@@ -46,7 +46,6 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 
 
-@ExperimentalPermissionsApi
 @Composable
 fun AdminCreateStudent(
     navController: NavHostController,
@@ -85,7 +84,6 @@ fun AdminCreateStudent(
         scaffoldState
     )
 }
-@ExperimentalPermissionsApi
 @Composable
 fun ToolBar(
     navController :NavHostController,
@@ -129,7 +127,6 @@ fun ToolBar(
     }
 }
 
-@ExperimentalPermissionsApi
 @Composable
 fun FormularioDoc(
 

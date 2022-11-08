@@ -27,7 +27,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 
-@ExperimentalPermissionsApi
 @Composable
 fun AdminCreateProfesor(
     navController: NavHostController
@@ -48,7 +47,6 @@ fun AdminCreateProfesor(
 
 }
 
-@ExperimentalPermissionsApi
 @Composable
 fun AdminProfesorToolBar(
     navController: NavHostController,
@@ -93,7 +91,6 @@ fun AdminProfesorToolBar(
     }
 }
 
-@ExperimentalPermissionsApi
 @Composable
 fun AdminProfesorFormularioDoc(
 
