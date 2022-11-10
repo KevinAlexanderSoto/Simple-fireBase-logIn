@@ -1,10 +1,13 @@
 package com.kalex.bookyouu_app.di
 
 import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
 import com.kalex.bookyouu_app.MainActivity
 import com.kalex.bookyouu_app.common.Constants
 import com.kalex.bookyouu_app.data.remote.UserRetroApi
+import com.kalex.bookyouu_app.data.repository.AuthenticationRepositoryImp
 import com.kalex.bookyouu_app.data.repository.UserRepositoryImpl
+import com.kalex.bookyouu_app.domain.repository.AuthenticationRepository
 import com.kalex.bookyouu_app.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -40,5 +43,10 @@ object AppModule {
     fun provideApplication(@ApplicationContext app: Context): MainActivity {
         return app as MainActivity
     }
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+
+    @Provides
+    fun providesAuthRepository(impl: AuthenticationRepositoryImp): AuthenticationRepository = impl
 
 }
