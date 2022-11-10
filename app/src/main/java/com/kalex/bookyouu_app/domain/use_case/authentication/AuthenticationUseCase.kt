@@ -14,7 +14,7 @@ import javax.inject.Inject
 class AuthenticationUseCase @Inject constructor(
   private  val authRepository : AuthenticationRepository
 ) {
-  operator fun invoke(email: String, password: String) : Flow<Resource<AuthResult>> = flow{
+  fun login(email: String, password: String) : Flow<Resource<AuthResult>> = flow{
     try {
       emit(Resource.Loading<AuthResult>())
       val user = authRepository.login(email,password)
@@ -25,4 +25,18 @@ class AuthenticationUseCase @Inject constructor(
       emit(Resource.Error<AuthResult>("error internet connection"))
     }
   }
+  suspend fun logout (): Flow <Resource<Boolean>> = flow{
+
+    try {
+      emit(Resource.Loading<Boolean>())
+      authRepository.logout()
+      emit(Resource.Success<Boolean>(true))
+    }catch (e: HttpException){
+      emit(Resource.Error<Boolean>(e.localizedMessage ?: "an unexpeted error occured"))
+    }catch (e:IOException){
+      emit(Resource.Error<Boolean>("error internet connection"))
+    }
+
+  }
+
 }
