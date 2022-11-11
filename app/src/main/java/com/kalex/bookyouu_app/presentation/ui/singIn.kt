@@ -1,5 +1,6 @@
 package com.kalex.bookyouu_app.presentation.ui
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -11,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -115,32 +117,8 @@ fun Buttonin(
     val context = LocalContext.current
     Button(
         onClick = {
-            runBlocking {
-                launch {
-                    delay(100L)
-                }
-            }
 
-            //println("Respuesta de server: $resp")
-
-                //TODO: IMPLEMENT THIS WHIT FIRE BASE
-                // val acceso = user.acceso
-                val acceso = true
-                println("acceso $acceso")
-                // println("respuesta${resp.user}")
-                if (acceso == true){
-
-                    Toast.makeText(context,"Acceso concedido",Toast.LENGTH_LONG).show()
-                    //TODO: CHECK IF WE NEED THIS
-                    // viewModel.saveAll(nombre = user.nombre,correo = correo, contraseña = contraseña)
-                    // navController.navigate("home/${resp.user?.nombre}")
-                    navController.navigate("adminhome/${"prueba"}") //TODO :  HERE WE CAN SEND THE CONTEXT OR USER TYPE
-
-                }else if(acceso == false){
-                    Toast.makeText(context,"El Correo o la Contraseña son incorrectos",Toast.LENGTH_LONG).show()
-
-                }
-
+            viewModel.login(correo,contraseña)
 
 
         },
@@ -157,13 +135,42 @@ fun Buttonin(
         ),
         enabled = habilitado
     ) {
+        val state = mutableStateOf(viewModel.state.value)
+        if (state.value.isLoading){
+            Toast.makeText(
+                context,
+                "cargando",
+                Toast.LENGTH_LONG
+            ).show()
 
+        }
+        //println("Respuesta de server: $resp")
+
+        //TODO: IMPLEMENT THIS WHIT FIRE BASE
+        if (!state.value.isLoading) {
+            val acceso = state.value.isLogin != null
+
+            println("acceso $acceso")
+            // println("respuesta${resp.user}")
+            if (acceso == true) {
+
+                Toast.makeText(context, "Acceso concedido", Toast.LENGTH_LONG).show()
+                //TODO: CHECK IF WE NEED THIS
+
+                LaunchedEffect(Unit) {
+                    navController.navigate("adminhome/${"prueba"}"){popUpTo("adminhome/${"prueba"}"){this.inclusive = true}
+                    }
+
+                }
+
+            }
+
+        }
         Icono(R.drawable.outline_login_24,30)
         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         ButtonText("Ingresar",22)
-
     }
-    //if(resp.isLoading) CircularProgressIndicator()
+
 }
 
 @Composable

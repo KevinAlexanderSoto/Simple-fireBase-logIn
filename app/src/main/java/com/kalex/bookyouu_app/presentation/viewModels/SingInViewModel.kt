@@ -8,6 +8,7 @@ import com.kalex.bookyouu_app.common.Resource
 import com.kalex.bookyouu_app.domain.use_case.authentication.AuthenticationUseCase
 import com.kalex.bookyouu_app.presentation.states.AuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,7 +46,6 @@ class SingInViewModel @Inject constructor(
         authUseCase.login(email,password).onEach { result ->
             when (result){
                 is Resource.Success -> {
-
                     _state.value = AuthState(isLogin = result.data )
                 }
                 is Resource.Loading -> {
@@ -57,7 +57,7 @@ class SingInViewModel @Inject constructor(
                     _state.value = AuthState(isError = result.message ?:"do not get and error")
                 }
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
 

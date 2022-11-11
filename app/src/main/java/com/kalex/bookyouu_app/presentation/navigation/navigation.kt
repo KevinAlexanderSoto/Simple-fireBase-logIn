@@ -32,7 +32,7 @@ fun Navegacion(onfiger: () -> Unit) {
     }
     NavHost(
         navController = navController,
-        startDestination = Constants.AdminHomeNavItem) //TODO : change the start destination
+        startDestination = Constants.MainNavItem) //TODO : change the start destination
     {
         val navigation_item = listOf(
             BottomItem.AdminCreateUser,
