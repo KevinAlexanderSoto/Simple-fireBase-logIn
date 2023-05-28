@@ -18,11 +18,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-
             BYAplicationTheme {
-                Navegacion({
+                Navegacion {
                     null
-                })
+                }
             }
         }
     }
