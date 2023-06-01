@@ -41,13 +41,12 @@ fun SingIn(
     navController: NavController,
     signInviewModel: SingInViewModel = hiltViewModel(),
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),// para hacer scroll
+            .verticalScroll(rememberScrollState()), // para hacer scroll
         verticalArrangement = Arrangement.spacedBy(11.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val resources = LocalContext.current.resources
         Text(
@@ -56,19 +55,19 @@ fun SingIn(
             fontSize = 40.sp,
             color = colors.secondary,
             modifier = Modifier
-                .padding(30.dp)
+                .padding(30.dp),
 
         )
 
         Textfield(resources.getString(R.string.login_subtitle_text))
         Spacer(
             modifier = Modifier
-                .padding(30.dp)
+                .padding(30.dp),
         )
         // manejar focus de los texto,
         val localFocusManager = LocalFocusManager.current
 
-        //state hoisting Email
+        // state hoisting Email
         val text = remember { Emailvalidation() }
 
         EmailField(
@@ -77,20 +76,18 @@ fun SingIn(
             onAction = {
                 // bajar al siguiente field
                 localFocusManager.moveFocus(FocusDirection.Down)
-            }
+            },
         ) {
-
             text.correo = it
             text.validate()
         }
 
-        //state hoisting Password
+        // state hoisting Password
         var password = remember { mutableStateOf("") }
         PasswordFiels(
             password.value,
-            onAction = { localFocusManager.clearFocus() }
-        )
-        {
+            onAction = { localFocusManager.clearFocus() },
+        ) {
             password.value = it
         }
 
@@ -99,13 +96,9 @@ fun SingIn(
             signInviewModel,
             navController,
             text.correo,
-            password.value
+            password.value,
         )
-
-
     }
-
-
 }
 
 @Composable
@@ -114,15 +107,12 @@ fun Buttonin(
     viewModel: SingInViewModel,
     navController: NavController,
     correo: String,
-    contraseña: String
+    contraseña: String,
 ) {
     val context = LocalContext.current
     Button(
         onClick = {
-
             viewModel.login(correo, contraseña)
-
-
         },
         modifier = Modifier
             .padding(top = 30.dp)
@@ -132,33 +122,31 @@ fun Buttonin(
         contentPadding = PaddingValues(12.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = bookYouuPrimary,
-            contentColor = blanco
+            contentColor = blanco,
         ),
-        enabled = habilitado
+        enabled = habilitado,
     ) {
-        val state = mutableStateOf(viewModel.state.value)
+        val state = remember {
+            mutableStateOf(viewModel.state.value)
+        }
         if (state.value.isLoading) {
             Toast.makeText(
                 context,
                 "cargando",
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_SHORT,
             ).show()
-
         }
 
-        //TODO: IMPLEMENT THIS WHIT FIRE BASE
+        // TODO: IMPLEMENT THIS WHIT FIRE BASE
         if (!state.value.isLoading) {
             val acceso = state.value.isLogin != null
             LaunchedEffect(Unit) {
                 if (acceso) {
                     Toast.makeText(context, "Acceso concedido", Toast.LENGTH_SHORT).show()
 
-
                     navController.navigate("adminhome/${"prueba"}") {
                         popUpTo("adminhome/${"prueba"}") { this.inclusive = true }
                     }
-
-
                 }
             }
         }
@@ -166,7 +154,6 @@ fun Buttonin(
         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         ButtonText("Ingresar", 22)
     }
-
 }
 
 @Composable
@@ -176,7 +163,7 @@ fun Textfield(texto: String) {
         style = MaterialTheme.typography.h6,
         color = colors.secondary,
         modifier = Modifier
-            .padding(4.dp)
+            .padding(4.dp),
     )
 }
 
@@ -185,14 +172,11 @@ fun EmailField(
     text: String,
     error: String?,
     onAction: () -> Unit,
-    onEmailChanged: (String) -> Unit
+    onEmailChanged: (String) -> Unit,
 ) {
-
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
-
         TextField(
             value = text,
             singleLine = true,
@@ -205,17 +189,17 @@ fun EmailField(
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                textColor = colors.secondary
+                textColor = colors.secondary,
             ),
             shape = RoundedCornerShape(9.dp),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Next,
             ),
             keyboardActions = KeyboardActions(onNext = {
                 onAction()
             }),
-            isError = error != null
+            isError = error != null,
         )
         error?.let { FielError(it) }
     }
@@ -225,7 +209,7 @@ fun EmailField(
 fun FielError(it: String) {
     Text(
         text = it,
-        style = TextStyle(color = colors.error)
+        style = TextStyle(color = colors.error),
     )
 }
 
@@ -233,7 +217,7 @@ fun FielError(it: String) {
 fun PasswordFiels(
     pass: String,
     onAction: () -> Unit,
-    onPasswordChange: (String) -> Unit
+    onPasswordChange: (String) -> Unit,
 ) {
     TextField(
         value = pass,
@@ -245,19 +229,17 @@ fun PasswordFiels(
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            textColor = colors.secondary
+            textColor = colors.secondary,
         ),
         shape = RoundedCornerShape(9.dp),
         visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Done,
         ),
         keyboardActions = KeyboardActions(onDone = {
             onAction()
         }),
 
-        )
+    )
 }
-
-

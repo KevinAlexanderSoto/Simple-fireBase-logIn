@@ -7,7 +7,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -21,132 +20,128 @@ import com.kalex.bookyouu_app.presentation.theme.blanco
 import com.kalex.bookyouu_app.presentation.theme.bookYouuPrimary
 import com.kalex.bookyouu_app.presentation.ui.*
 
-
 @ExperimentalPermissionsApi
 @Composable
 fun Navegacion(onfiger: () -> Unit) {
     val navController = rememberNavController()
-    //TODO:add the context change
+    // TODO:add the context change
     var appContext by remember {
         mutableStateOf("default")
     }
     NavHost(
         navController = navController,
-        startDestination = Constants.MainNavItem) //TODO : change the start destination
+        startDestination = Constants.MainNavItem,
+    ) // TODO : change the start destination
     {
         val navigation_item = listOf(
             BottomItem.AdminCreateUser,
             BottomItem.AdminSubject,
-            BottomItem.AdminSearch
+            BottomItem.AdminSearch,
         )
 
-        composable(Constants.MainNavItem){
+        composable(Constants.MainNavItem) {
             SingIn(navController)
         }
-//----------------Admin Section -------------------
-        composable(Constants.AdminHomeNavItem
-        ){
-          backStackEntry->
+// ----------------Admin Section -------------------
+        composable(
+            Constants.AdminHomeNavItem,
+        ) { backStackEntry ->
             val scaffoldState = rememberScaffoldState(
-                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
             )
             Scaffold(
                 scaffoldState = scaffoldState,
-                bottomBar = { bottomNavigationScaffold(navController,navigation_item)}
+                bottomBar = { bottomNavigationScaffold(navController, navigation_item) },
 
-            ) {
+            ) {_->
                 // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
                 val nombre = appContext
                 requireNotNull(nombre)
-                adminCreate(navController,nombre)
+                adminCreate(navController, nombre)
             }
-
-
         }
-        composable(Constants.AdminSendStudentNavItem){
+        composable(Constants.AdminSendStudentNavItem) {
             AdminCreateStudent(navController)
         }
-        composable(Constants.AdminSendProfesorNavItem){
+        composable(Constants.AdminSendProfesorNavItem) {
             AdminCreateProfesor(navController)
         }
-        composable(Constants.AdminSendSubjectNavItem){
+        composable(Constants.AdminSendSubjectNavItem) {
             AdminCreateSubject(navController)
         }
-        composable(Constants.AdminbottomSubjectNavItem){
+        composable(Constants.AdminbottomSubjectNavItem) {
             val scaffoldState = rememberScaffoldState(
-                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
             )
             Scaffold(
                 scaffoldState = scaffoldState,
-                bottomBar = { bottomNavigationScaffold(navController,navigation_item)}
+                bottomBar = { bottomNavigationScaffold(navController, navigation_item) },
 
-            ) {
+            ) {_->
                 // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
                 val nombre = appContext
                 requireNotNull(nombre)
                 adminBottomSubjectHome(navController)
             }
-
-
         }
 
-        composable(Constants.AdminbottomSearchNavItem){
+        composable(Constants.AdminbottomSearchNavItem) {
             val scaffoldState = rememberScaffoldState(
-                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+                drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
             )
             Scaffold(
                 scaffoldState = scaffoldState,
-                bottomBar = { bottomNavigationScaffold(navController,navigation_item)}
+                bottomBar = { bottomNavigationScaffold(navController, navigation_item) },
 
-            ) {
+            ) {_ ->
                 // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
                 val nombre = appContext
                 requireNotNull(nombre)
                 adminBottomSearchHome(navController)
             }
-
-
         }
-//-----------------Student section ---------------------------------
-        composable(Constants.StudentHomeNavItem){
+// -----------------Student section ---------------------------------
+        composable(Constants.StudentHomeNavItem) {
         }
-        composable(Constants.getDocDetailNavItem){
-                backStackEntry->
-            val idRegistro= backStackEntry.arguments?.getString("idRegistro")
+        composable(Constants.getDocDetailNavItem) { backStackEntry ->
+            val idRegistro = backStackEntry.arguments?.getString("idRegistro")
             requireNotNull(idRegistro)
         }
-        composable(Constants.oficesNavItem){
+        composable(Constants.oficesNavItem) {
         }
     }
 }
 
 @Composable
-fun currentRoute(navController: NavHostController):String?{
-val entry by navController.currentBackStackEntryAsState()
+fun currentRoute(navController: NavHostController): String? {
+    val entry by navController.currentBackStackEntryAsState()
     return entry?.destination?.route
 }
+
 @Composable
 fun bottomNavigationScaffold(navController: NavHostController, navigation_item: List<BottomItem>) {
     BottomNavigation(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)),
-        backgroundColor =bookYouuPrimary,
+        backgroundColor = bookYouuPrimary,
         contentColor = blanco,
-        elevation = 3.dp
-    ){
+        elevation = 3.dp,
+    ) {
         navigation_item.forEach { bottomItem ->
-val actualRoute = currentRoute(navController = navController)
+            val actualRoute = currentRoute(navController = navController)
             BottomNavigationItem(
-                selected =actualRoute == bottomItem.route,
+                selected = actualRoute == bottomItem.route,
                 onClick = { navController.navigate(bottomItem.route) },
                 icon = {
-                    Icon(painter = painterResource(id = bottomItem.icon), contentDescription =bottomItem.title )
-                    },
+                    Icon(
+                        painter = painterResource(id = bottomItem.icon),
+                        contentDescription = bottomItem.title,
+                    )
+                },
                 label = {
                     Text(text = bottomItem.title)
-                }
+                },
             )
         }
     }
-
 }
