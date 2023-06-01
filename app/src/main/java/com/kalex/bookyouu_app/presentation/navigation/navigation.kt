@@ -22,7 +22,7 @@ import com.kalex.bookyouu_app.presentation.ui.*
 
 @ExperimentalPermissionsApi
 @Composable
-fun Navegacion(onfiger: () -> Unit) {
+fun Navegacion() {
     val navController = rememberNavController()
     // TODO:add the context change
     var appContext by remember {
@@ -99,15 +99,6 @@ fun Navegacion(onfiger: () -> Unit) {
                 requireNotNull(nombre)
                 adminBottomSearchHome(navController)
             }
-        }
-// -----------------Student section ---------------------------------
-        composable(Constants.StudentHomeNavItem) {
-        }
-        composable(Constants.getDocDetailNavItem) { backStackEntry ->
-            val idRegistro = backStackEntry.arguments?.getString("idRegistro")
-            requireNotNull(idRegistro)
-        }
-        composable(Constants.oficesNavItem) {
         }
     }
 }

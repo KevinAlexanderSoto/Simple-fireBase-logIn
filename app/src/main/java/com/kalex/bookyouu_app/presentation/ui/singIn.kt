@@ -1,6 +1,5 @@
 package com.kalex.bookyouu_app.presentation.ui
 
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,7 +10,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,8 +28,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.kalex.bookyouu_app.R
+import com.kalex.bookyouu_app.common.Constants
 import com.kalex.bookyouu_app.presentation.composables.ButtonText
 import com.kalex.bookyouu_app.presentation.composables.Icono
+import com.kalex.bookyouu_app.presentation.states.AuthState
 import com.kalex.bookyouu_app.presentation.theme.blanco
 import com.kalex.bookyouu_app.presentation.theme.bookYouuPrimary
 import com.kalex.bookyouu_app.presentation.validations.Emailvalidation
@@ -39,7 +40,7 @@ import com.kalex.bookyouu_app.presentation.viewModels.SingInViewModel
 @Composable
 fun SingIn(
     navController: NavController,
-    signInviewModel: SingInViewModel = hiltViewModel(),
+    signInViewModel: SingInViewModel = hiltViewModel(),
 ) {
     Column(
         modifier = Modifier
@@ -54,15 +55,12 @@ fun SingIn(
             style = MaterialTheme.typography.h6,
             fontSize = 40.sp,
             color = colors.secondary,
-            modifier = Modifier
-                .padding(30.dp),
-
+            modifier = Modifier.padding(30.dp),
         )
 
         Textfield(resources.getString(R.string.login_subtitle_text))
         Spacer(
-            modifier = Modifier
-                .padding(30.dp),
+            modifier = Modifier.padding(30.dp),
         )
         // manejar focus de los texto,
         val localFocusManager = LocalFocusManager.current
@@ -83,37 +81,69 @@ fun SingIn(
         }
 
         // state hoisting Password
-        var password = remember { mutableStateOf("") }
+        val password = remember { mutableStateOf("") }
         PasswordFiels(
             password.value,
             onAction = { localFocusManager.clearFocus() },
         ) {
             password.value = it
         }
-
+        val singInStateFlag = remember { mutableStateOf(false) }
+        val loadingStateFlag = remember { mutableStateOf(false) }
+        val successStateFlag = remember { mutableStateOf(false) }
         Buttonin(
             habilitado = text.valid(),
-            signInviewModel,
-            navController,
-            text.correo,
-            password.value,
+            onButtonClick = {
+                signInViewModel.login(text.correo, password.value)
+                singInStateFlag.value = true
+            },
         )
+        if (loadingStateFlag.value) {
+            CircularProgressIndicator()
+        }
+
+        if (singInStateFlag.value) {
+            handleLoginState(
+                signInViewModel.state.collectAsState().value,
+                onLoading = {
+                    loadingStateFlag.value = true
+                },
+                onSuccess = {
+                    loadingStateFlag.value = false
+                    navController.navigate(Constants.AdminHomeNavItem)
+                },
+                onError = {
+// todo: add error handle
+                },
+            )
+        }
+    }
+}
+
+fun handleLoginState(
+    state: AuthState,
+    onLoading: () -> Unit,
+    onSuccess: () -> Unit,
+    onError: () -> Unit,
+) {
+    if (state.isLoading) {
+        onLoading()
+    }
+    if (!state.isLoading && state.isLogin != null) {
+        onSuccess()
+    }
+    if (!state.isLoading && state.isError.isNotEmpty() && state.isLogin == null) {
+        onError()
     }
 }
 
 @Composable
 fun Buttonin(
     habilitado: Boolean,
-    viewModel: SingInViewModel,
-    navController: NavController,
-    correo: String,
-    contraseña: String,
+    onButtonClick: () -> Unit,
 ) {
-    val context = LocalContext.current
     Button(
-        onClick = {
-            viewModel.login(correo, contraseña)
-        },
+        onClick = { onButtonClick() },
         modifier = Modifier
             .padding(top = 30.dp)
             .fillMaxWidth(0.8f),
@@ -126,30 +156,6 @@ fun Buttonin(
         ),
         enabled = habilitado,
     ) {
-        val state = remember {
-            mutableStateOf(viewModel.state.value)
-        }
-        if (state.value.isLoading) {
-            Toast.makeText(
-                context,
-                "cargando",
-                Toast.LENGTH_SHORT,
-            ).show()
-        }
-
-        // TODO: IMPLEMENT THIS WHIT FIRE BASE
-        if (!state.value.isLoading) {
-            val acceso = state.value.isLogin != null
-            LaunchedEffect(Unit) {
-                if (acceso) {
-                    Toast.makeText(context, "Acceso concedido", Toast.LENGTH_SHORT).show()
-
-                    navController.navigate("adminhome/${"prueba"}") {
-                        popUpTo("adminhome/${"prueba"}") { this.inclusive = true }
-                    }
-                }
-            }
-        }
         Icono(R.drawable.outline_login_24, 30)
         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         ButtonText("Ingresar", 22)
@@ -162,8 +168,7 @@ fun Textfield(texto: String) {
         text = texto,
         style = MaterialTheme.typography.h6,
         color = colors.secondary,
-        modifier = Modifier
-            .padding(4.dp),
+        modifier = Modifier.padding(4.dp),
     )
 }
 

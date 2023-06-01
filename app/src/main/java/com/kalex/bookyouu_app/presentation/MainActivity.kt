@@ -19,9 +19,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BYAplicationTheme {
-                Navegacion {
-                    null
-                }
+                Navegacion()
             }
         }
     }
