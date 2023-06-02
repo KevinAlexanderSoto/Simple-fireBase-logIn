@@ -2,9 +2,12 @@ package com.kalex.bookyouu_app.data.remote.dataStore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.kalex.bookyouu_app.MainActivity
+import com.kalex.bookyouu_app.MainApplication
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -16,8 +19,7 @@ const val SETTING_PREFERENCES_NAME: String = "settings_preferences"
 
 @Singleton
 class SettingsDataStore @Inject constructor(
-
-    private val context: MainActivity,
+    private val context: MainApplication,
 ) {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(

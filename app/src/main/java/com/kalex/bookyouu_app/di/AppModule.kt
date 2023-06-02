@@ -2,7 +2,7 @@ package com.kalex.bookyouu_app.di
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
-import com.kalex.bookyouu_app.MainActivity
+import com.kalex.bookyouu_app.MainApplication
 import com.kalex.bookyouu_app.common.Constants
 import com.kalex.bookyouu_app.data.remote.UserRetroApi
 import com.kalex.bookyouu_app.data.repository.AuthenticationRepositoryImp
@@ -39,8 +39,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApplication(@ApplicationContext app: Context): MainActivity {
-        return app as MainActivity
+    fun provideApplication(@ApplicationContext app: Context): MainApplication {
+        return app as MainApplication
     }
 
     @Provides
