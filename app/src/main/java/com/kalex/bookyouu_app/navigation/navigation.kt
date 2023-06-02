@@ -1,4 +1,4 @@
-package com.kalex.bookyouu_app.presentation.navigation
+package com.kalex.bookyouu_app.navigation
 
 import AdminCreateProfesor
 import AdminCreateSubject

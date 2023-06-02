@@ -1,4 +1,4 @@
-package com.kalex.bookyouu_app.presentation.navigation
+package com.kalex.bookyouu_app.navigation
 
 import com.kalex.bookyouu_app.R
 import com.kalex.bookyouu_app.common.Constants

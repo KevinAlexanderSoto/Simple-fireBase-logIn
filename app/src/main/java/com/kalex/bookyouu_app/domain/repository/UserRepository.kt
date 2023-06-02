@@ -1,10 +1,7 @@
 package com.kalex.bookyouu_app.domain.repository
 
-import com.kalex.bookyouu_app.data.remote.dto.*
-import okhttp3.RequestBody
-import retrofit2.Response
+import com.kalex.bookyouu_app.data.remote.dto.Userdto
 
 interface UserRepository {
-    suspend fun getUser():Userdto
-
+    suspend fun getUser(): Userdto
 }

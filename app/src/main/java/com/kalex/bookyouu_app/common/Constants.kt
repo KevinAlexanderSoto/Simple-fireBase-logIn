@@ -10,11 +10,6 @@ object Constants {
     const val AdminbottomSubjectNavItem = "homesubject"
     const val AdminbottomSearchNavItem = "homesearch"
     const val AdminSendSubjectNavItem = "subjectformsearch"
-    const val AdminSearchNavItem = "homesearch"
-
-    const val StudentHomeNavItem = "studenthome"
 
     const val oficesNavItem = "getofices"
-    const val getDocNavItem = "getdoc"
-    const val getDocDetailNavItem = "getdocdetail/{idRegistro}"
 }

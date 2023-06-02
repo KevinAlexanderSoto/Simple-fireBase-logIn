@@ -1,8 +1,6 @@
 package com.kalex.bookyouu_app.data.remote.dataStore
 
 import android.content.Context
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
@@ -19,16 +17,16 @@ const val SETTING_PREFERENCES_NAME: String = "settings_preferences"
 @Singleton
 class SettingsDataStore @Inject constructor(
 
-    private val context : MainActivity
-){
+    private val context: MainActivity,
+) {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-        SETTING_PREFERENCES_NAME
+        SETTING_PREFERENCES_NAME,
     )
 
     val settingsPrefsFlow: Flow<DataNeed> = context.dataStore.data
         .catch { exception ->
-            if(exception is IOException){
+            if (exception is IOException) {
                 emit(emptyPreferences())
             } else {
                 throw exception
@@ -41,32 +39,30 @@ class SettingsDataStore @Inject constructor(
             DataNeed(
                 nombre = nombre,
                 correo = correo,
-                contraseña = contraseña
+                contraseña = contraseña,
             )
         }
 
-    suspend fun saveNombre(nuevo:String) {
+    suspend fun saveNombre(nuevo: String) {
         context.dataStore.edit { preferences ->
             preferences[NOMBRE] = nuevo
         }
     }
-    suspend fun saveAll(nombre: String,correo: String,contraseña: String){
+
+    suspend fun saveAll(nombre: String, correo: String, contraseña: String) {
         context.dataStore.edit { preferences ->
             preferences[NOMBRE] = nombre
             preferences[CORREO] = correo
             preferences[CONTRASEÑA] = contraseña
-
         }
     }
 
-    suspend fun saveLogin(correo: String,contraseña: String){
+    suspend fun saveLogin(correo: String, contraseña: String) {
         context.dataStore.edit { preferences ->
             preferences[CORREO] = correo
             preferences[CONTRASEÑA] = contraseña
-
         }
     }
-
 
     companion object {
         val NOMBRE = stringPreferencesKey("nombre")
@@ -74,9 +70,9 @@ class SettingsDataStore @Inject constructor(
         val CONTRASEÑA = stringPreferencesKey("contraseña")
     }
 
-    data class DataNeed (
-        val nombre : String,
-        val correo : String,
-        val contraseña : String
-            )
+    data class DataNeed(
+        val nombre: String,
+        val correo: String,
+        val contraseña: String,
+    )
 }
