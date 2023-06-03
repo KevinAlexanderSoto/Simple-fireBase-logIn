@@ -1,7 +1,6 @@
 package com.kalex.bookyouu_app.presentation.ui
 
 import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.ui.geometry.Size
 import androidx.compose.foundation.layout.*
@@ -23,16 +22,15 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.kalex.bookyouu_app.R
-import com.kalex.bookyouu_app.presentation.composables.ButtonText
-import com.kalex.bookyouu_app.presentation.composables.Drawer
-import com.kalex.bookyouu_app.presentation.composables.Icono
-import com.kalex.bookyouu_app.presentation.theme.blanco
-import com.kalex.bookyouu_app.presentation.theme.bookYouuPrimary
-import com.kalex.bookyouu_app.presentation.validations.validarString
+import com.kalex.bookyouu_app.res.composables.ButtonText
+import com.kalex.bookyouu_app.res.composables.Drawer
+import com.kalex.bookyouu_app.res.composables.Icono
+import com.kalex.bookyouu_app.res.theme.blanco
+import com.kalex.bookyouu_app.res.theme.bookYouuPrimary
+import com.kalex.bookyouu_app.presentation.validations.validateStringLength
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -170,7 +168,7 @@ fun FormularioDoc(
 
 
 //-------------------validaciones para habilitar enviar data---------------------------
-           val validacion = validarString(text1)&&validarString(text2)&&validarString(text3) &&validarString(text4)&&validarString(menu1)&&validarString(menu2)
+           val validacion = validateStringLength(text1)&&validateStringLength(text2)&&validateStringLength(text3) &&validateStringLength(text4)&&validateStringLength(menu1)&&validateStringLength(menu2)
 
 //-------------------Armado del body para Post Document---------------------------
         //Crear Body para mandar

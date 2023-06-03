@@ -1,4 +1,4 @@
-package com.kalex.bookyouu_app.presentation.composables
+package com.kalex.bookyouu_app.res.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

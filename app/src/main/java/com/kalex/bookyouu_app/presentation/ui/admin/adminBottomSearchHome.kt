@@ -20,10 +20,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.kalex.bookyouu_app.R
 import com.kalex.bookyouu_app.common.Constants
-import com.kalex.bookyouu_app.presentation.composables.Drawer
-import com.kalex.bookyouu_app.presentation.composables.Imagen
-import com.kalex.bookyouu_app.presentation.theme.color1
-import com.kalex.bookyouu_app.presentation.theme.color2
+import com.kalex.bookyouu_app.res.composables.Drawer
+import com.kalex.bookyouu_app.res.composables.Imagen
+import com.kalex.bookyouu_app.res.theme.color1
+import com.kalex.bookyouu_app.res.theme.color2
 import com.kalex.bookyouu_app.presentation.viewModels.UserViewModel
 import kotlinx.coroutines.launch
 

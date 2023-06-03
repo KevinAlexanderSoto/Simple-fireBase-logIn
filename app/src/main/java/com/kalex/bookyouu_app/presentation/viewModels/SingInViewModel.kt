@@ -26,14 +26,26 @@ class SingInViewModel @Inject constructor(
             authUseCase.logout().onEach { result ->
                 when (result) {
                     is Resource.Success -> {
-                        _state.update { it.copy(isLoading = false, isLogin = null,isLogout = result.data ?: false) }
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                isLogin = null,
+                                isLogout = result.data ?: false,
+                            )
+                        }
                     }
+
                     is Resource.Loading -> {
                         _state.update { it.copy(isLoading = true, isLogin = null) }
                     }
-                    is Resource.Error -> {
-                        _state.update { it.copy(isLoading = false, isError = result.message ?: "do not get and error" ) }
 
+                    is Resource.Error -> {
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                isError = result.message ?: "do not get and error",
+                            )
+                        }
                     }
                 }
             }
@@ -46,11 +58,18 @@ class SingInViewModel @Inject constructor(
                 is Resource.Success -> {
                     _state.update { it.copy(isLoading = false, isLogin = result.data) }
                 }
+
                 is Resource.Loading -> {
                     _state.update { it.copy(isLoading = true) }
                 }
+
                 is Resource.Error -> {
-                    _state.update { it.copy(isLoading = false, isError = result.message ?: "do not get and error" ) }
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = result.message ?: "do not get and error",
+                        )
+                    }
                 }
             }
         }.launchIn(viewModelScope)

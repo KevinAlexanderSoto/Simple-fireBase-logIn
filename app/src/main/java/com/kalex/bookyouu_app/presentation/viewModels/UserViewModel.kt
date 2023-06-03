@@ -20,7 +20,6 @@ class UserViewModel @Inject constructor(
     private val _state = mutableStateOf(UserState())
     val state: State<UserState> = _state
 
-    // Emailvalidation   MutableState<String>
     init {
         getUser()
     }

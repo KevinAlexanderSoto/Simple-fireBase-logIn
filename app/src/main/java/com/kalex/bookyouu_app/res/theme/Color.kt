@@ -1,4 +1,4 @@
-package com.kalex.bookyouu_app.presentation.theme
+package com.kalex.bookyouu_app.res.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.kalex.bookyouu_app.presentation.composables
+package com.kalex.bookyouu_app.res.composables
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon

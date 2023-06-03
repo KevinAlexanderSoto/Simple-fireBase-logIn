@@ -19,10 +19,15 @@ import androidx.navigation.NavController
 import com.kalex.bookyouu_app.R
 import com.kalex.bookyouu_app.common.Constants
 import com.kalex.bookyouu_app.presentation.composables.*
-import com.kalex.bookyouu_app.presentation.theme.blanco
-import com.kalex.bookyouu_app.presentation.theme.color1
-import com.kalex.bookyouu_app.presentation.theme.color2
-import com.kalex.bookyouu_app.presentation.theme.color3
+import com.kalex.bookyouu_app.res.theme.blanco
+import com.kalex.bookyouu_app.res.theme.color1
+import com.kalex.bookyouu_app.res.theme.color2
+import com.kalex.bookyouu_app.res.theme.color3
+import com.kalex.bookyouu_app.res.composables.ButtonText
+import com.kalex.bookyouu_app.res.composables.Drawer
+import com.kalex.bookyouu_app.res.composables.Icono
+import com.kalex.bookyouu_app.res.composables.IconoVector
+import com.kalex.bookyouu_app.res.composables.Imagen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

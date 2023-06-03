@@ -29,11 +29,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.kalex.bookyouu_app.R
 import com.kalex.bookyouu_app.common.Constants
-import com.kalex.bookyouu_app.presentation.composables.ButtonText
-import com.kalex.bookyouu_app.presentation.composables.Icono
+import com.kalex.bookyouu_app.res.composables.ButtonText
+import com.kalex.bookyouu_app.res.composables.Icono
 import com.kalex.bookyouu_app.presentation.states.AuthState
-import com.kalex.bookyouu_app.presentation.theme.blanco
-import com.kalex.bookyouu_app.presentation.theme.bookYouuPrimary
+import com.kalex.bookyouu_app.res.theme.blanco
+import com.kalex.bookyouu_app.res.theme.bookYouuPrimary
 import com.kalex.bookyouu_app.presentation.validations.Emailvalidation
 import com.kalex.bookyouu_app.presentation.viewModels.SingInViewModel
 

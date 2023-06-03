@@ -16,8 +16,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.kalex.bookyouu_app.common.Constants
-import com.kalex.bookyouu_app.presentation.theme.blanco
-import com.kalex.bookyouu_app.presentation.theme.bookYouuPrimary
+import com.kalex.bookyouu_app.res.theme.blanco
+import com.kalex.bookyouu_app.res.theme.bookYouuPrimary
 import com.kalex.bookyouu_app.presentation.ui.*
 
 @ExperimentalPermissionsApi

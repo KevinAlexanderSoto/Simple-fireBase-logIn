@@ -11,14 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.kalex.bookyouu_app.presentation.composables.Drawer
+import com.kalex.bookyouu_app.res.composables.Drawer
 import com.kalex.bookyouu_app.presentation.ui.BtnEnviarImg
 import com.kalex.bookyouu_app.presentation.ui.InputText
 import com.kalex.bookyouu_app.presentation.ui.dropDownMenu
-import com.kalex.bookyouu_app.presentation.validations.validarString
+import com.kalex.bookyouu_app.presentation.validations.validateStringLength
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -132,9 +130,9 @@ fun AdminSubjectFormulario(
 
 //-------------------validaciones para habilitar enviar data---------------------------
         val validacion =
-            validarString(text1) && validarString(text2) && validarString(text3) && validarString(
+            validateStringLength(text1) && validateStringLength(text2) && validateStringLength(text3) && validateStringLength(
                 text4
-            ) && validarString(menu1)
+            ) && validateStringLength(menu1)
 
 //-------------------Armado del body para Post Document---------------------------
         //Crear Body para mandar
