@@ -2,7 +2,13 @@ package com.kalex.bookyouu_app.presentation.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -15,11 +21,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.kalex.bookyouu_app.R
 import com.kalex.bookyouu_app.common.Constants
-import com.kalex.bookyouu_app.presentation.viewModels.DataViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -28,14 +32,7 @@ fun Drawer(
     scope: CoroutineScope,
     scaffoldState: ScaffoldState,
     navController: NavController,
-    viewModel : DataViewModel = hiltViewModel(),
-
 ) {
-    //obtener nombre , para que se vuelva a pintar
-    viewModel.settingsPrefs
-
-    var nombre = viewModel.nombre
-
     Column {
         Image(
             painter = painterResource(id = R.drawable.imgdesplegable),
@@ -43,14 +40,16 @@ fun Drawer(
             modifier = Modifier
                 .height(160.dp)
                 .fillMaxWidth(),
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.FillWidth,
         )
 
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .height(15.dp))
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(15.dp),
+        )
 
-        DrawerItem(texto = "Cerrar sección",R.drawable.logout_20) {
+        DrawerItem(texto = "Cerrar sección", R.drawable.logout_20) {
             navController.navigate(Constants.MainNavItem) {
                 launchSingleTop = true
             }
@@ -64,9 +63,9 @@ fun Drawer(
 
 @Composable
 fun DrawerItem(
-    texto:String,
-    imagen :Any,
-    onItemClick: ()->Unit,
+    texto: String,
+    imagen: Any,
+    onItemClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -75,12 +74,12 @@ fun DrawerItem(
             .padding(6.dp)
             .clip(RoundedCornerShape(12))
             .clickable { onItemClick() },
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icono(imagen, 20)
         Spacer(modifier = Modifier.width(12.dp))
         Text(
-            text= texto,
+            text = texto,
             style = TextStyle(fontSize = 18.sp),
 
         )

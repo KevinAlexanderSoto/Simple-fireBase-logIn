@@ -22,11 +22,8 @@ import com.kalex.bookyouu_app.R
 import com.kalex.bookyouu_app.common.Constants
 import com.kalex.bookyouu_app.presentation.composables.Drawer
 import com.kalex.bookyouu_app.presentation.composables.Imagen
-import com.kalex.bookyouu_app.presentation.states.UserState
 import com.kalex.bookyouu_app.presentation.theme.color1
 import com.kalex.bookyouu_app.presentation.theme.color2
-import com.kalex.bookyouu_app.presentation.theme.color3
-import com.kalex.bookyouu_app.presentation.viewModels.DataViewModel
 import com.kalex.bookyouu_app.presentation.viewModels.UserViewModel
 import kotlinx.coroutines.launch
 
