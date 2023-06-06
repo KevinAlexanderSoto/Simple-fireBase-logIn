@@ -1,4 +1,4 @@
-package com.kalex.bookyouu_app.presentation.ui
+package com.kalex.bookyouu_app.presentation.ui.admin
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,15 +19,14 @@ import com.kalex.bookyouu_app.res.composables.Drawer
 import com.kalex.bookyouu_app.res.composables.Imagen
 import com.kalex.bookyouu_app.res.theme.color1
 import com.kalex.bookyouu_app.res.theme.color2
-import com.kalex.bookyouu_app.res.theme.color3
 import kotlinx.coroutines.launch
 
 @Composable
 fun adminBottomSubjectHome(
-    navController: NavController
-){
+    navController: NavController,
+) {
     val scaffoldState = rememberScaffoldState(
-        drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
     )
     val scope = rememberCoroutineScope()
     Scaffold(
@@ -41,42 +40,46 @@ fun adminBottomSubjectHome(
                             scaffoldState.drawerState.open()
                         }
                     }) {
-                        Icon(imageVector = Icons.Default.Menu,
-                            contentDescription = "menu hamburgesa")
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = "menu hamburgesa",
+                        )
                     }
                 },
             )
-        }, drawerContent = { Drawer(scope, scaffoldState, navController,) },
+        },
+        drawerContent = { Drawer(scope, scaffoldState, navController) },
         drawerGesturesEnabled = true,
-        bottomBar = {}
-    ) {
-            padding->
+        bottomBar = {},
+    ) { padding ->
         subjectContent(navController)
     }
-
-
 }
 
 @Composable
-fun subjectContent(navController: NavController){
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState()),// para hacer scroll
+fun subjectContent(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()), // para hacer scroll
         verticalArrangement = Arrangement.spacedBy(18.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         val resources = LocalContext.current.resources
-        Imagen(url = R.drawable.materiaimg, modifier = Modifier
-            .wrapContentSize(Alignment.BottomCenter)
-            .height(250.dp)
-            .width(450.dp)
-             )
+        Imagen(
+            url = R.drawable.materiaimg,
+            modifier = Modifier
+                .wrapContentSize(Alignment.BottomCenter)
+                .height(250.dp)
+                .width(450.dp),
+        )
         Spacer(modifier = Modifier.padding(3.dp))
         Card(
             encabezado = "Agregar Materia",
             R.drawable.ic_student,
             navController,
             Constants.AdminSendSubjectNavItem,
-            color1
+            color1,
 
         )
         Spacer(modifier = Modifier.padding(10.dp))
@@ -85,7 +88,7 @@ fun subjectContent(navController: NavController){
             R.drawable.plagiarism_24,
             navController,
             Constants.AdminSendProfesorNavItem,
-            color2
+            color2,
         )
 
         Spacer(modifier = Modifier.padding(15.dp))

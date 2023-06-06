@@ -1,7 +1,6 @@
 package com.kalex.bookyouu_app.navigation
 
-import AdminCreateProfesor
-import AdminCreateSubject
+
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -16,18 +15,18 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.kalex.bookyouu_app.common.Constants
+import com.kalex.bookyouu_app.presentation.ui.*
+import com.kalex.bookyouu_app.presentation.ui.admin.adminBottomSearchHome
+import com.kalex.bookyouu_app.presentation.ui.admin.adminBottomSubjectHome
+import com.kalex.bookyouu_app.presentation.ui.admin.adminCreate
 import com.kalex.bookyouu_app.res.theme.blanco
 import com.kalex.bookyouu_app.res.theme.bookYouuPrimary
-import com.kalex.bookyouu_app.presentation.ui.*
 
 @ExperimentalPermissionsApi
 @Composable
 fun Navegacion() {
     val navController = rememberNavController()
-    // TODO:add the context change
-    var appContext by remember {
-        mutableStateOf("default")
-    }
+
     NavHost(
         navController = navController,
         startDestination = Constants.MainNavItem,
@@ -53,21 +52,18 @@ fun Navegacion() {
                 scaffoldState = scaffoldState,
                 bottomBar = { bottomNavigationScaffold(navController, navigation_item) },
 
-            ) {_->
-                // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
-                val nombre = appContext
-                requireNotNull(nombre)
-                adminCreate(navController, nombre)
+            ) { _ ->
+                adminCreate(navController)
             }
         }
         composable(Constants.AdminSendStudentNavItem) {
-            AdminCreateStudent(navController)
+
         }
         composable(Constants.AdminSendProfesorNavItem) {
-            AdminCreateProfesor(navController)
+
         }
         composable(Constants.AdminSendSubjectNavItem) {
-            AdminCreateSubject(navController)
+
         }
         composable(Constants.AdminbottomSubjectNavItem) {
             val scaffoldState = rememberScaffoldState(
@@ -77,10 +73,7 @@ fun Navegacion() {
                 scaffoldState = scaffoldState,
                 bottomBar = { bottomNavigationScaffold(navController, navigation_item) },
 
-            ) {_->
-                // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
-                val nombre = appContext
-                requireNotNull(nombre)
+            ) { _ ->
                 adminBottomSubjectHome(navController)
             }
         }
@@ -93,10 +86,8 @@ fun Navegacion() {
                 scaffoldState = scaffoldState,
                 bottomBar = { bottomNavigationScaffold(navController, navigation_item) },
 
-            ) {_ ->
-                // TODO: PU HERE THE CONTEX val nombre= backStackEntry.arguments?.getString("nombre")
-                val nombre = appContext
-                requireNotNull(nombre)
+            ) { _ ->
+
                 adminBottomSearchHome(navController)
             }
         }
